@@ -1,0 +1,15 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
+MDScreen:
+    md_bg_color: get_color_from_hex("#ffffff")  # เปลี่ยนสีพื้นหลังของแอป
+
+    MDTopAppBar:
+        type: "small"
+        size_hint_x: 1
+        pos_hint: {"center_x": .5, "top": 1}  # วางที่ด้านบนของหน้าจอ
+        MDTopAppBarLeadingButtonContainer:
+            MDActionTopAppBarButton:
+                icon: "menu"
+        MDTopAppBarTitle:
+            text: "Mood Tracker"
+            pos_hint: {"center_x": .5}
