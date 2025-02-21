@@ -1,3 +1,6 @@
+import openai
+from config import get_openai_key
+openai_key_api = get_openai_key()
 class MoodTracker:
     def __init__(self):
         self.moods = []
