@@ -10,11 +10,6 @@ from kivy.uix.button import Button
 
 
 class DeezerPlayer(App):
-    def build(self):
-        # Create a button to start playback
-        btn = Button(text="Play Preview")
-        btn.bind(on_press=self.play_preview)
-        return btn
 
     def play_preview(self, instance, trackname, artistname):
         # Initialize Deezer client
@@ -23,7 +18,7 @@ class DeezerPlayer(App):
         # Search for the track
         track_name = trackname
         artist_name = artistname
-        search_results = client.search(track_name)
+        search_results = client.search(track=track_name, artist=artist_name)
 
         if search_results:
             track = search_results[0]  # Get the first result
