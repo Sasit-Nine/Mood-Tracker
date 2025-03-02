@@ -10,11 +10,6 @@ from kivy.uix.button import Button
 
 
 class DeezerPlayer(App):
-    def build(self):
-        # Create a button to start playback
-        btn = Button(text="Play Preview")
-        btn.bind(on_press=self.play_preview)
-        return btn
 
     def play_preview(self, instance, trackname, artistname):
         # Initialize Deezer client
