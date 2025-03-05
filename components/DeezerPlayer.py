@@ -1,6 +1,6 @@
+# how can i play preview song from spotify in python
 # ถาม gpt ว่าok then how can i change to use deezer (ตอนแรกจะใช้ spotify แต่spotify หยุดให้ preview url)
 
-import os
 import requests
 import tempfile
 import deezer
@@ -10,19 +10,15 @@ from kivy.uix.button import Button
 
 
 class DeezerPlayer(App):
-    def build(self):
-        # Create a button to start playback
-        btn = Button(text="Play Preview")
-        btn.bind(on_press=self.play_preview)
-        return btn
 
-    def play_preview(self, instance):
+    def play_preview(self, instance, trackname, artistname):
         # Initialize Deezer client
         client = deezer.Client()
-
+        print("track: ", trackname, "artistname: ", artistname)
         # Search for the track
-        track_name = "slow dance in the dark"
-        search_results = client.search(track_name)
+        track_name = trackname
+        artist_name = artistname
+        search_results = client.search(track=track_name, artist=artist_name)
 
         if search_results:
             track = search_results[0]  # Get the first result
