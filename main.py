@@ -21,12 +21,12 @@ class MoodSelect(BoxLayout):
 
         emoji_grid = BoxLayout(spacing=10, size_hint_y=None, height=80)
         self.emoji_map = {
-            "Happy": "Happy",
-            "Sad": "Sad",
-            "Angry": "Angry",
-            "Calm": "Calm",
-            "Excited": "Excited",
-            "Ahh~~~": "Horny",
+            "😊 Happy": "Happy",
+            "😢 Sad": "Sad",
+            "😡 Angry": "Angry",
+            "😌 Calm": "Calm",
+            "🤩 Excited": "Excited",
+            "🔥 Ahh~~~": "Horny",
         }
 
         for emoji, mood in self.emoji_map.items():
@@ -39,7 +39,7 @@ class MoodSelect(BoxLayout):
         self.add_widget(emoji_grid)
 
         # Text input
-        self.add_widget(Label(text="Describe your feelings:", size_hint_y=None, height=30))
+        self.add_widget(Label(text="📝 Describe your feelings:", size_hint_y=None, height=30))
         self.text_input = TextInput(
             multiline=False, size_hint_y=None, height=100, hint_text="Type a short description of your emotions..."
         )
