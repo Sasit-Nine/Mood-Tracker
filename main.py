@@ -20,22 +20,11 @@ class MoodSelect(BoxLayout):
         self.add_widget(Label(text="What's your mood today?", size_hint_y=None, height=30))
 
         emoji_grid = BoxLayout(spacing=10, size_hint_y=None, height=80)
-        self.emoji_map = {
-            "😊 Happy": "Happy",
-            "😢 Sad": "Sad",
-            "😡 Angry": "Angry",
-            "😌 Calm": "Calm",
-            "🤩 Excited": "Excited",
-            "🔥 Ahh~~~": "Horny",
-        }
 
-        for emoji, mood in self.emoji_map.items():
-            btn = Button(
-                text=emoji,
-                font_size=40,
-            )
-            btn.bind(on_press=lambda instance, e=mood: self.emoji_select(e))
-            emoji_grid.add_widget(btn)
+        btn = Button()
+
+        emoji_grid.add_widget(btn)
+
         self.add_widget(emoji_grid)
 
         # Text input
