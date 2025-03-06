@@ -13,14 +13,8 @@ class MoodSelect(BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.tracker = MoodTracker()
-        self.orientation = "vertical"
-        self.space = 20
-        self.padding = 50
 
-        self.add_widget(Label(text="What's your mood today?", size_hint_y=None, height=30))
-
-        emoji_grid = BoxLayout(spacing=10, size_hint_y=None, height=80)
-
+        emoji_grid = BoxLayout()
         btn = Button()
 
         emoji_grid.add_widget(btn)
@@ -41,22 +35,28 @@ class MoodSelect(BoxLayout):
     def emoji_select(self, mood):
         self.tracker.track_mood(mood)
 
-    def submit_mood(self, instance):
+    def submit_mood(self):
         text = self.text_input.text
         if text:
             self.tracker.track_text(text)  # print คำอธิบายอารมณ์
-            mood_data = self.tracker.show_moods()
-            if mood_data:
+            self.get_music_recommendation()
+
+    def get_music_recommendation(self):
+        mood_data = self.tracker.show_moods()
+        if mood_data:
+            try:
                 response = suggest_music(mood_data[0])
-                track, artist = split_text(response)
-                deezer_player(None, track, artist)
+            except:
+                print("Can't suggest music")
+            track, artist = split_text(response)
+            deezer_player(None, track, artist)
             self.text_input.text = ""
 
 
 class MoodTracker:
     def __init__(self):
         self.moods = []
-        self.text = []
+        self.descriptions = []
         self.all = None
 
     def track_mood(self, mood: str):
@@ -64,18 +64,11 @@ class MoodTracker:
         print(f"Your Mood : {mood}")
 
     def track_text(self, text: str):
-        self.text.append(text)
+        self.descriptions.append(text)
         print(f"Your Shortly describe your emotions : {self.moods}")
 
-    def show_moods(self):
-        self.all = zip(self.moods, self.text)
-        if self.all is None:
-            print("Empty")
-        else:
-            return list(self.all)
-            # print('Your Moods:')
-            # for mood in self.all:
-            #     print(f'- {mood}')
+    def get_mood_data(self):
+        return list(zip(self.mood, self.descriptions))
 
 
 def split_text(text):
