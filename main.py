@@ -1,10 +1,9 @@
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.label import Label
-from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
+from kivy.properties import ObjectProperty
 from components.music_service import suggest_music
 from components.DeezerPlayer import DeezerPlayer
+
 # from kivy.core.window import Window
 # from kivy.config import Config
 from kivy.lang import Builder
@@ -13,65 +12,44 @@ from kivy.core.window import Window
 
 Window.fullscreen = True
 deezer_player = DeezerPlayer().play_preview
+
+
 class MoodSelect(BoxLayout):
+    """UI หลักของหน้าเลือกอารมณ์"""
+
+    text_input = ObjectProperty(None)
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.tracker = MoodTracker()
-        self.orientation = "vertical"
-        self.space = 20
-        self.padding = 50
-
-        self.add_widget(Label(text="What's your mood today?", size_hint_y=None, height=30))
-
-        emoji_grid = BoxLayout(spacing=10, size_hint_y=None, height=80)
-        self.emoji_map = {
-            "😊 Happy": "Happy",
-            "😢 Sad": "Sad",
-            "😡 Angry": "Angry",
-            "😌 Calm": "Calm",
-            "🤩 Excited": "Excited",
-            "🔥 Ahh~~~": "Horny",
-        }
-
-        for emoji, mood in self.emoji_map.items():
-            btn = Button(
-                text=emoji,
-                font_size=40,
-            )
-            btn.bind(on_press=lambda instance, e=mood: self.emoji_select(e))
-            emoji_grid.add_widget(btn)
-        self.add_widget(emoji_grid)
-
-        # Text input
-        self.add_widget(Label(text="📝 Describe your feelings:", size_hint_y=None, height=30))
-        self.text_input = TextInput(
-            multiline=False, size_hint_y=None, height=100, hint_text="Type a short description of your emotions..."
-        )
-        self.add_widget(self.text_input)
-
-        self.submit_button = Button(text="Get Music Recommendation", size_hint_y=None, height=50)
-        self.submit_button.bind(on_press=self.submit_mood)
-        self.add_widget(self.submit_button)
+        self.player = DeezerPlayer()
 
     def emoji_select(self, mood):
+        """ส่วนไว้รับการเลือก emoji"""
         self.tracker.track_mood(mood)
 
-    def submit_mood(self, instance):
+    def submit_mood(self, *args):
         text = self.text_input.text
         if text:
             self.tracker.track_text(text)  # print คำอธิบายอารมณ์
-            mood_data = self.tracker.show_moods()
-            if mood_data:
+            self.get_music_recommendation()
+
+    def get_music_recommendation(self):
+        mood_data = self.tracker.get_mood_data()
+        if mood_data:
+            try:
                 response = suggest_music(mood_data[0])
                 track, artist = split_text(response)
-                deezer_player(None, track, artist)
-            self.text_input.text = ""
+                self.player.play_preview(None, track, artist)
+                self.text_input.text = ""  # Clear ช่อง input
+            except Exception as e:
+                print(f"Error suggesting music: {e}")
 
 
 class MoodTracker:
     def __init__(self):
         self.moods = []
-        self.text = []
+        self.descriptions = []
         self.all = None
 
     def track_mood(self, mood: str):
@@ -79,18 +57,13 @@ class MoodTracker:
         print(f"Your Mood : {mood}")
 
     def track_text(self, text: str):
-        self.text.append(text)
+        """เก็บคำอธิบายอารมณ์"""
+        self.descriptions.append(text)
         print(f"Your Shortly describe your emotions : {self.moods}")
 
-    def show_moods(self):
-        self.all = zip(self.moods, self.text)
-        if self.all is None:
-            print("Empty")
-        else:
-            return list(self.all)
-            # print('Your Moods:')
-            # for mood in self.all:
-            #     print(f'- {mood}')
+    def get_mood_data(self):
+        """คืนค่าคู่ของอารมณ์กับคำอธิบาย"""
+        return list(zip(self.moods, self.descriptions))
 
 
 def split_text(text):

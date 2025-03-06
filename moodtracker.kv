@@ -1,0 +1,52 @@
+#:kivy 2.3.1
+
+<MoodSelect>:
+    text_input: text_input_field
+
+    orientation: "vertical"
+    spacing: 20
+    padding: 50
+
+    Label:
+        text: "What's your mood today?"
+        size_hint_y: None
+        height: 40
+
+    BoxLayout:
+        id: emoji_grid
+        spacing: 10
+        size_hint_y: None 
+        height: 80
+        
+        MoodButton:
+            background_normal: 'Images/happy.png'
+            on_press: root.emoji_select('happy')
+        MoodButton:
+            background_normal: 'Images/sad.png'
+            on_press: root.emoji_select('sad')
+    
+    Label:
+        text: "📝 Describe your feelings:"
+        size_hint_y: None
+        height: 30
+
+    TextInput:
+        id: text_input_field
+        multiline: False
+        size_hint_y: None
+        height: 100
+        hint_text: "Type a short description of your emotions..."
+    
+    Button:
+        text: "Get Music Recommendation"
+        size_hint_y: None
+        height: 50
+        on_press: root.submit_mood()
+
+# Custom button for mood emojis
+<MoodButton@Button>:
+    background_normal: ''
+    border: (0, 0, 0, 0)
+    size_hint: (None, None)
+    size: 64, 64
+
