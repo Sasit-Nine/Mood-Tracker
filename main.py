@@ -4,6 +4,15 @@ from kivy.properties import ObjectProperty
 from components.music_service import suggest_music
 from components.DeezerPlayer import DeezerPlayer
 
+# from kivy.core.window import Window
+# from kivy.config import Config
+from kivy.lang import Builder
+from kivymd.app import MDApp
+from kivy.core.window import Window
+
+Window.fullscreen = True
+deezer_player = DeezerPlayer().play_preview
+
 
 class MoodSelect(BoxLayout):
     """UI หลักของหน้าเลือกอารมณ์"""
