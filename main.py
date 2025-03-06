@@ -5,10 +5,14 @@ from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from components.music_service import suggest_music
 from components.DeezerPlayer import DeezerPlayer
+# from kivy.core.window import Window
+# from kivy.config import Config
+from kivy.lang import Builder
+from kivymd.app import MDApp
+from kivy.core.window import Window
 
+Window.fullscreen = True
 deezer_player = DeezerPlayer().play_preview
-
-
 class MoodSelect(BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
