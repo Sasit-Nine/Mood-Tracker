@@ -2,10 +2,29 @@
 
 <MoodSelect>:
     text_input: text_input_field
-
     orientation: "vertical"
     spacing: 20
     padding: 50
+
+    MDScreen:
+        md_bg_color: self.theme_cls.secondaryContainerColor
+
+        MDTopAppBar:
+            type: "small"
+            size_hint_x: .8
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+            MDTopAppBarLeadingButtonContainer:
+                MDActionTopAppBarButton:
+                    icon: "menu"
+
+            MDTopAppBarTitle:
+                text: "Mood Tracker"
+                pos_hint: {"center_x": .5}
+
+            MDTopAppBarTrailingButtonContainer:
+                MDActionTopAppBarButton:
+                    icon: "account-circle-outline"
 
     Label:
         text: "What's your mood today?"
@@ -24,7 +43,7 @@
         MoodButton:
             background_normal: 'Images/sad.png'
             on_press: root.emoji_select('sad')
-    
+
     Label:
         text: "📝 Describe your feelings:"
         size_hint_y: None
@@ -49,4 +68,3 @@
     border: (0, 0, 0, 0)
     size_hint: (None, None)
     size: 64, 64
-

@@ -3,16 +3,14 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
 from components.music_service import suggest_music
 from components.DeezerPlayer import DeezerPlayer
-
-# from kivy.core.window import Window
-# from kivy.config import Config
-from kivy.lang import Builder
 from kivymd.app import MDApp
-from kivy.core.window import Window
+from kivy.lang import Builder
+from kivymd.uix.screen import MDScreen
 
-Window.fullscreen = True
+# Load the .kv file
+Builder.load_file('moodtracker.kv')
+
 deezer_player = DeezerPlayer().play_preview
-
 
 class MoodSelect(BoxLayout):
     """UI หลักของหน้าเลือกอารมณ์"""
@@ -71,7 +69,7 @@ def split_text(text):
     return text.split(" by ")
 
 
-class MoodTrackerApp(App):
+class MoodTrackerApp(MDApp):
     def build(self):
         return MoodSelect()
 
