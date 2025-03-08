@@ -14,9 +14,7 @@
 
     MDScreen:
         md_bg_color: self.theme_cls.secondaryContainerColor
-
-
-
+        radius: [40, 40, 40, 40]
 
     Label:
         text: "What’s your mood like today?"
@@ -44,7 +42,6 @@
                 background_normal: 'Images/happy.png'
                 on_press: root.emoji_select('happy')
             Label:
-                text: 'Happy'
                 font_size: 14  
                 color: 1, 1, 1, 1  # สีขาว
                 size_hint_y: None
@@ -57,7 +54,6 @@
                 background_normal: 'Images/sad.png'
                 on_press: root.emoji_select('sad')
             Label:
-                text: 'Sad'
                 font_size: 14  
                 color: 1, 1, 1, 1  # สีขาว
                 size_hint_y: None
@@ -71,7 +67,6 @@
                 background_normal: 'Images/angry.png'
                 on_press: root.emoji_select('angry')
             Label:
-                text: 'Angry'
                 font_size: 14  
                 color: 1, 1, 1, 1  # สีขาว
                 size_hint_y: None
@@ -85,7 +80,6 @@
                 background_normal: 'Images/calm.png'
                 on_press: root.emoji_select('calm')
             Label:
-                text: 'Calm'
                 font_size: 14  
                 color: 1, 1, 1, 1  # สีขาว
                 size_hint_y: None
@@ -99,7 +93,6 @@
                 background_normal: 'Images/excited.png'
                 on_press: root.emoji_select('excited')
             Label:
-                text: 'Excited'
                 font_size: 14  
                 color: 1, 1, 1, 1  # สีขาว
                 size_hint_y: None
@@ -113,7 +106,6 @@
                 background_normal: 'Images/horny.png'
                 on_press: root.emoji_select('horny')        
             Label:
-                text: 'Sus?'
                 font_size: 14  
                 color: 1, 1, 1, 1  # สีขาว
                 size_hint_y: None
@@ -135,16 +127,23 @@
         size_hint_y: None
         height: 100
         hint_text: "Type a short description of your emotions..."
-        background_color: 0.9, 0.9, 0.9, 1  # สีพื้นหลังช่องข้อความ
-        foreground_color: 0, 0, 0, 1  # สีข้อความ
+        background_color:  0.9921568627450981, 0.9921568627450981, 0.996078431372549, 1   # สีพื้นหลังช่องข้อความ
+        foreground_color: 0, 0, 0, 0  # สีข้อความ
         padding: [10, 10, 10, 10]  # เพิ่ม padding ภายในช่องข้อความ
+        
     
     Button:
         text: "Get Music Recommendation"
         size_hint_y: None
         height: 100
         on_press: root.submit_mood()
-        background_color: 0.9137, 0.3294, 0.2, 1
+        canvas.before:
+            Color:
+                rgba: 0.9137, 0.3294, 0.2, 1  # สีปุ่ม
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [20]  # ทำมุมโค้ง
         color: 1, 1, 1, 1  # สีข้อความขาว
         font_size: 30
 
