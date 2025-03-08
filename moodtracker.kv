@@ -17,7 +17,17 @@
             anchor_y: "center"
             FitImage:
                 source: "Images/disk.gif"
-                size_hint: 0.8, 0.8  # ปรับขนาดรูปภาพ
+                size_hint: None, None  # ปิดการปรับขนาดอัตโนมัติ
+                size: 500, 500  # ปรับให้เป็นจตุรัส 200x200 (เปลี่ยนได้ตามต้องการ)
+                keep_ratio: True  # รักษาอัตราส่วนของรูปภาพ
+                allow_stretch: True  # อนุญาตให้ยืดขยายรูปภาพ
+        Label:
+            text: "What’s your mood like today?"
+            size_hint_y: None
+            height: 60
+            font_size: 50
+            spacing: 10
+            padding: [20,20]
 
     Label:
         text: "What’s your mood like today?"
