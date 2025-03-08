@@ -2,10 +2,29 @@
 
 <MoodSelect>:
     text_input: text_input_field
-
     orientation: "vertical"
     spacing: 20
     padding: 50
+
+    MDScreen:
+        md_bg_color: self.theme_cls.secondaryContainerColor
+
+        MDTopAppBar:
+            type: "small"
+            size_hint_x: .8
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+            MDTopAppBarLeadingButtonContainer:
+                MDActionTopAppBarButton:
+                    icon: "menu"
+
+            MDTopAppBarTitle:
+                text: "Mood Tracker"
+                pos_hint: {"center_x": .5}
+
+            MDTopAppBarTrailingButtonContainer:
+                MDActionTopAppBarButton:
+                    icon: "account-circle-outline"
 
     Label:
         text: "What's your mood today?"
@@ -28,13 +47,13 @@
             background_normal: 'Images/angry.png'
             on_press: root.emoji_select('angry')
         MoodButton:
-            background_normal: 'Image/calm.png'
+            background_normal: 'Images/calm.png'
             on_press: root.emoji_select('calm')
         MoodButton:
-            background_normal: 'Image/excited.png'
+            background_normal: 'Images/excited.png'
             on_press: root.emoji_select('excited')
         MoodButton:
-            background_normal: 'Image/horny.png'
+            background_normal: 'Images/horny.png'
             on_press: root.emoji_select('excited')
 
 
@@ -56,6 +75,12 @@
         size_hint_y: None
         height: 50
         on_press: root.submit_mood()
+
+    Button:
+        text: "Exit App"  # ปุ่มปิดแอป
+        size_hint_y: None
+        height: 50
+        on_press: app.stop_app()  # เรียกฟังก์ชัน stop_app ใน MoodTrackerApp
 
 # Custom button for mood emojis
 <MoodButton@Button>:
