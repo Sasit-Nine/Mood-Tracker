@@ -3,15 +3,11 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
 from components.music_service import suggest_music
 from components.DeezerPlayer import DeezerPlayer
-
-
-# from kivy.core.window import Window
-# from kivy.config import Config
+from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivymd.uix.screen import MDScreen
-from kivy.core.window import Window
+from kivy.animation import Animation
 
-Window.fullscreen = False
 deezer_player = DeezerPlayer().play_preview
 
 class MoodSelect(BoxLayout):
@@ -26,6 +22,8 @@ class MoodSelect(BoxLayout):
 
     def emoji_select(self, mood):
         """ส่วนไว้รับการเลือก emoji"""
+        anim = Animation(size=(90, 90), duration=0.1) + Animation(size=(80, 80), duration=0.1)
+        anim.start(self.ids.emoji_grid)
         self.tracker.track_mood(mood)
 
     def submit_mood(self, *args):
@@ -73,7 +71,6 @@ def split_text(text):
 
 class MoodTrackerApp(MDApp):
     def build(self):
-        Window.bind(on_request_close=self.on_request_close)
         return MoodSelect()
     
 
