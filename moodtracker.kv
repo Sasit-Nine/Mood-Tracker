@@ -1,5 +1,6 @@
 #:kivy 2.3.1
 
+
 <MoodSelect>:
     text_input: text_input_field
 
@@ -21,9 +22,67 @@
         MoodButton:
             background_normal: 'Images/happy.png'
             on_press: root.emoji_select('happy')
+            
+
+        Label:
+            text: 'Happy'
+            font_size: 12
+            size_hint_y: None
+            height: 16
+
+
         MoodButton:
             background_normal: 'Images/sad.png'
             on_press: root.emoji_select('sad')
+
+        Label:
+            text: 'Sad'
+            font_size: 12
+            size_hint_y: None
+            height: 16
+
+
+        MoodButton:
+            background_normal: 'Images/angry.png'
+            on_press: root.emoji_select('angry')
+
+        Label:
+            text: 'Angry'
+            font_size: 12
+            size_hint_y: None
+            height: 16
+
+
+        MoodButton:
+            background_normal: 'Images/calm.png'
+            on_press: root.emoji_select('calm')
+
+        Label:
+            text: 'Calm'
+            font_size: 12
+            size_hint_y: None
+            height: 16
+
+
+        MoodButton:
+            background_normal: 'Images/excited.png'
+            on_press: root.emoji_select('excited')
+
+        Label:
+            text: 'Excited'
+            font_size: 12
+            size_hint_y: None
+            height: 16
+
+        MoodButton:
+            background_normal: 'Images/horny.png'
+            on_press: root.emoji_select('horny')        
+
+        Label:
+            text: 'Sus?'
+            font_size: 12
+            size_hint_y: None
+            height: 16
     
     Label:
         text: "📝 Describe your feelings:"
@@ -46,7 +105,29 @@
 # Custom button for mood emojis
 <MoodButton@Button>:
     background_normal: ''
+    background_color: 1, 1, 1, 1
     border: (0, 0, 0, 0)
     size_hint: (None, None)
-    size: 64, 64
+    size: 80, 80
+    # เพิ่มเอฟเฟกต์เมื่อกดปุ่ม
+    background_down: self.background_normal
+    background_color_down: 0.8, 0.8, 0.8, 1 
+    # เพิ่มเอฟเฟกต์การเปลี่ยนสีเมื่อเมาส์ชี้
+    canvas.before:
+        Color:
+            rgba: 0.9, 0.9, 0.9, 1 if self.state == 'normal' else 0.7, 0.7, 0.7, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [10, 10, 10, 10]  # ทำมุมโค้ง
+            
+    # เพิ่มเงา
+    canvas.before:
+        Color:
+            rgba: 0.5, 0.5, 0.5, 0.2
+        RoundedRectangle:
+            pos: self.x + 2, self.y - 2
+            size: self.size
+            radius: [10, 10, 10, 10]
 
+   
