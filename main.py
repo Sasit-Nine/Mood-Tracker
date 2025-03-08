@@ -8,9 +8,10 @@ from kivy.lang import Builder
 from kivymd.uix.screen import MDScreen
 
 # Load the .kv file
-Builder.load_file('moodtracker.kv')
+Builder.load_file("moodtracker.kv")
 
 deezer_player = DeezerPlayer().play_preview
+
 
 class MoodSelect(BoxLayout):
     """UI หลักของหน้าเลือกอารมณ์"""
