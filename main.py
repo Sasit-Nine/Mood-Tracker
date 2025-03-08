@@ -6,9 +6,7 @@ from components.DeezerPlayer import DeezerPlayer
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivymd.uix.screen import MDScreen
-
-# Load the .kv file
-Builder.load_file("moodtracker.kv")
+from kivy.animation import Animation
 
 deezer_player = DeezerPlayer().play_preview
 
@@ -25,6 +23,8 @@ class MoodSelect(BoxLayout):
 
     def emoji_select(self, mood):
         """ส่วนไว้รับการเลือก emoji"""
+        anim = Animation(size=(90, 90), duration=0.1) + Animation(size=(80, 80), duration=0.1)
+        anim.start(self.ids.emoji_grid)
         self.tracker.track_mood(mood)
 
     def submit_mood(self, *args):
