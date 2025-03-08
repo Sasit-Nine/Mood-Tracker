@@ -1,8 +1,6 @@
 #:kivy 2.3.1
 <MoodSelect>:
     canvas.before:
-        Color:
-            rgba: 0.1647, 0.2235, 0.3137 , 1
         Rectangle:
             pos: self.pos
             size: self.size
@@ -14,6 +12,12 @@
 
     MDCard:
         style: "filled"
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "center"
+            FitImage:
+                source: "Images/disk.gif"
+                size_hint: 0.8, 0.8  # ปรับขนาดรูปภาพ
 
     Label:
         text: "What’s your mood like today?"
@@ -21,7 +25,7 @@
         height: 60
         font_size: 50
         spacing: 10
-        color: 1, 1, 1, 1  # สีขาว
+        color: 0, 0, 0, 0 
         padding: [20,20]
 
     Widget:
@@ -111,16 +115,18 @@
                 height: 20
 
     MDTextField:
-        mode: "outlined"
         id: text_input_field
+        mode: "outlined"
         multiline: False
         size_hint_y: None
         height: 100
         hint_text: "Type a short description of your emotions..."
-        background_color:  0.9921568627450981, 0.9921568627450981, 0.996078431372549, 1   # สีพื้นหลังช่องข้อความ
-        foreground_color: 0, 0, 0, 0  # สีข้อความ
+        
+        md_bg_color: 0.992, 0.992, 0.996, 1  # สีพื้นหลัง (เทียบเท่า #FDFDFE)
+        text_color: 0, 0, 0, 1  # สีข้อความ (ดำ)
+        hint_text_color: 0.5, 0.5, 0.5, 1  # สีข้อความ Hint (เทา)
+        
         padding: [10, 10, 10, 10]  # เพิ่ม padding ภายในช่องข้อความ
-        color: 1,1,1,1
         
     
     MDButton:
@@ -130,7 +136,7 @@
         size: "300dp", "50dp"  # ปรับขนาดปุ่ม
         on_press: root.submit_mood()  # เพิ่มการทำงานเมื่อกดปุ่ม
         theme_text_color: "Custom"  # กำหนดให้ใช้สีข้อความแบบกำหนดเอง
-        text_color: 1, 1, 1, 1  # สีข้อความขาว
+        text_color: 0, 0, 0, 0  # สีข้อความขาว
         font_size: "18sp"  # ขนาดฟอนต์
         MDButtonText:
             text: "Get Music Recommendation"
