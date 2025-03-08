@@ -15,29 +15,21 @@
     MDScreen:
         md_bg_color: self.theme_cls.secondaryContainerColor
 
-        MDTopAppBar:
-            type: "small"
-            size_hint_x: .8
-            pos_hint: {"center_x": .5, "center_y": .5}
 
-            MDTopAppBarLeadingButtonContainer:
-                MDActionTopAppBarButton:
-                    icon: "menu"
 
-            MDTopAppBarTitle:
-                text: "Mood Tracker"
-                pos_hint: {"center_x": .5}
-
-            MDTopAppBarTrailingButtonContainer:
-                MDActionTopAppBarButton:
-                    icon: "account-circle-outline"
 
     Label:
-        text: "What's your mood today?"
+        text: "What’s your mood like today?"
         size_hint_y: None
-        height: 40
-        font_size: 24
+        height: 60
+        font_size: 50
+        spacing: 10
         color: 1, 1, 1, 1  # สีขาว
+        padding: [20,20]
+
+    Widget:
+        size_hint_y: None
+        height: 20  
 
     BoxLayout:
         id: emoji_grid
@@ -150,11 +142,11 @@
     Button:
         text: "Get Music Recommendation"
         size_hint_y: None
-        height: 50
+        height: 100
         on_press: root.submit_mood()
-        background_color: 0.4471, 0.3529, 0.4784, 1  # สี #725A7A
+        background_color: 0.9137, 0.3294, 0.2, 1
         color: 1, 1, 1, 1  # สีข้อความขาว
-        font_size: 18
+        font_size: 30
 
 
 # Custom button for mood emojis
@@ -166,6 +158,7 @@
     size: 80, 80
 
     # เพิ่มเอฟเฟกต์เมื่อกดปุ่ม
+    
     background_down: self.background_normal
     background_color_down: 0.8, 0.8, 0.8, 1 
 
