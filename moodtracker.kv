@@ -12,9 +12,8 @@
     spacing: 20
     padding: 50
 
-    MDScreen:
-        md_bg_color: self.theme_cls.secondaryContainerColor
-        radius: [40, 40, 40, 40]
+    MDCard:
+        style: "filled"
 
     Label:
         text: "What’s your mood like today?"
@@ -111,17 +110,8 @@
                 size_hint_y: None
                 height: 20
 
-    
-    Label:
-        text: "📝 Describe your feelings:"
-        size_hint_y: None
-        height: 30
-        color: 1, 1, 1, 1  # สีขาว
-        font_size: 18
-        halign: 'left'
-        text_size: self.width, None
-
-    TextInput:
+    MDTextField:
+        mode: "outlined"
         id: text_input_field
         multiline: False
         size_hint_y: None
@@ -130,22 +120,20 @@
         background_color:  0.9921568627450981, 0.9921568627450981, 0.996078431372549, 1   # สีพื้นหลังช่องข้อความ
         foreground_color: 0, 0, 0, 0  # สีข้อความ
         padding: [10, 10, 10, 10]  # เพิ่ม padding ภายในช่องข้อความ
+        color: 1,1,1,1
         
     
-    Button:
-        text: "Get Music Recommendation"
-        size_hint_y: None
-        height: 100
-        on_press: root.submit_mood()
-        canvas.before:
-            Color:
-                rgba: 0.9137, 0.3294, 0.2, 1  # สีปุ่ม
-            RoundedRectangle:
-                pos: self.pos
-                size: self.size
-                radius: [20]  # ทำมุมโค้ง
-        color: 1, 1, 1, 1  # สีข้อความขาว
-        font_size: 30
+    MDButton:
+        style: "elevated"
+        pos_hint: {"center_x": .5, "center_y": .5}
+        size_hint: None, None
+        size: "300dp", "50dp"  # ปรับขนาดปุ่ม
+        on_press: root.submit_mood()  # เพิ่มการทำงานเมื่อกดปุ่ม
+        theme_text_color: "Custom"  # กำหนดให้ใช้สีข้อความแบบกำหนดเอง
+        text_color: 1, 1, 1, 1  # สีข้อความขาว
+        font_size: "18sp"  # ขนาดฟอนต์
+        MDButtonText:
+            text: "Get Music Recommendation"
 
 
 # Custom button for mood emojis
