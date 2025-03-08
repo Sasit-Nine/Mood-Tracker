@@ -3,14 +3,15 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
 from components.music_service import suggest_music
 from components.DeezerPlayer import DeezerPlayer
-from kivymd.app import MDApp
+
+
+# from kivy.core.window import Window
+# from kivy.config import Config
 from kivy.lang import Builder
 from kivymd.uix.screen import MDScreen
 from kivy.core.window import Window
 
-# Load the .kv file
-Builder.load_file('moodtracker.kv')
-
+Window.fullscreen = False
 deezer_player = DeezerPlayer().play_preview
 
 class MoodSelect(BoxLayout):
