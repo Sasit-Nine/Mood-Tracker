@@ -2,8 +2,14 @@
 
 
 <MoodSelect>:
-    text_input: text_input_field
+    canvas.before:
+        Color:
+            rgba: 0.1647, 0.2235, 0.3137 , 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
 
+    text_input: text_input_field
     orientation: "vertical"
     spacing: 20
     padding: 50
@@ -12,6 +18,8 @@
         text: "What's your mood today?"
         size_hint_y: None
         height: 40
+        font_size: 24
+        color: 1, 1, 1, 1  # สีขาว
 
     BoxLayout:
         id: emoji_grid
@@ -19,75 +27,97 @@
         size_hint_y: None 
         height: 80
         
-        MoodButton:
-            background_normal: 'Images/happy.png'
-            on_press: root.emoji_select('happy')
-            
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 5  # ระยะห่างระหว่างปุ่มกับข้อความ
+            MoodButton:
+                background_normal: 'Images/happy.png'
+                on_press: root.emoji_select('happy')
+            Label:
+                text: 'Happy'
+                font_size: 14  
+                color: 1, 1, 1, 1  # สีขาว
+                size_hint_y: None
+                height: 20
 
-        Label:
-            text: 'Happy'
-            font_size: 12
-            size_hint_y: None
-            height: 16
-
-
-        MoodButton:
-            background_normal: 'Images/sad.png'
-            on_press: root.emoji_select('sad')
-
-        Label:
-            text: 'Sad'
-            font_size: 12
-            size_hint_y: None
-            height: 16
-
-
-        MoodButton:
-            background_normal: 'Images/angry.png'
-            on_press: root.emoji_select('angry')
-
-        Label:
-            text: 'Angry'
-            font_size: 12
-            size_hint_y: None
-            height: 16
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 5  # ระยะห่างระหว่างปุ่มกับข้อความ
+            MoodButton:
+                background_normal: 'Images/sad.png'
+                on_press: root.emoji_select('sad')
+            Label:
+                text: 'Sad'
+                font_size: 14  
+                color: 1, 1, 1, 1  # สีขาว
+                size_hint_y: None
+                height: 20
 
 
-        MoodButton:
-            background_normal: 'Images/calm.png'
-            on_press: root.emoji_select('calm')
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 5  # ระยะห่างระหว่างปุ่มกับข้อความ
+            MoodButton:
+                background_normal: 'Images/angry.png'
+                on_press: root.emoji_select('angry')
+            Label:
+                text: 'Angry'
+                font_size: 14  
+                color: 1, 1, 1, 1  # สีขาว
+                size_hint_y: None
+                height: 20
 
-        Label:
-            text: 'Calm'
-            font_size: 12
-            size_hint_y: None
-            height: 16
+
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 5  # ระยะห่างระหว่างปุ่มกับข้อความ
+            MoodButton:
+                background_normal: 'Images/calm.png'
+                on_press: root.emoji_select('calm')
+            Label:
+                text: 'Calm'
+                font_size: 14  
+                color: 1, 1, 1, 1  # สีขาว
+                size_hint_y: None
+                height: 20
 
 
-        MoodButton:
-            background_normal: 'Images/excited.png'
-            on_press: root.emoji_select('excited')
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 5  # ระยะห่างระหว่างปุ่มกับข้อความ
+            MoodButton:
+                background_normal: 'Images/excited.png'
+                on_press: root.emoji_select('excited')
+            Label:
+                text: 'Excited'
+                font_size: 14  
+                color: 1, 1, 1, 1  # สีขาว
+                size_hint_y: None
+                height: 20
 
-        Label:
-            text: 'Excited'
-            font_size: 12
-            size_hint_y: None
-            height: 16
 
-        MoodButton:
-            background_normal: 'Images/horny.png'
-            on_press: root.emoji_select('horny')        
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 5  # ระยะห่างระหว่างปุ่มกับข้อความ
+            MoodButton:
+                background_normal: 'Images/horny.png'
+                on_press: root.emoji_select('horny')        
+            Label:
+                text: 'Sus?'
+                font_size: 14  
+                color: 1, 1, 1, 1  # สีขาว
+                size_hint_y: None
+                height: 20
 
-        Label:
-            text: 'Sus?'
-            font_size: 12
-            size_hint_y: None
-            height: 16
     
     Label:
         text: "📝 Describe your feelings:"
         size_hint_y: None
         height: 30
+        color: 1, 1, 1, 1  # สีขาว
+        font_size: 18
+        halign: 'left'
+        text_size: self.width, None
 
     TextInput:
         id: text_input_field
@@ -95,12 +125,19 @@
         size_hint_y: None
         height: 100
         hint_text: "Type a short description of your emotions..."
+        background_color: 0.9, 0.9, 0.9, 1  # สีพื้นหลังช่องข้อความ
+        foreground_color: 0, 0, 0, 1  # สีข้อความ
+        padding: [10, 10, 10, 10]  # เพิ่ม padding ภายในช่องข้อความ
     
     Button:
         text: "Get Music Recommendation"
         size_hint_y: None
         height: 50
         on_press: root.submit_mood()
+        background_color: 0.4471, 0.3529, 0.4784, 1  # สี #725A7A
+        color: 1, 1, 1, 1  # สีข้อความขาว
+        font_size: 18
+
 
 # Custom button for mood emojis
 <MoodButton@Button>:
@@ -109,9 +146,11 @@
     border: (0, 0, 0, 0)
     size_hint: (None, None)
     size: 80, 80
+
     # เพิ่มเอฟเฟกต์เมื่อกดปุ่ม
     background_down: self.background_normal
     background_color_down: 0.8, 0.8, 0.8, 1 
+
     # เพิ่มเอฟเฟกต์การเปลี่ยนสีเมื่อเมาส์ชี้
     canvas.before:
         Color:
@@ -130,4 +169,3 @@
             size: self.size
             radius: [10, 10, 10, 10]
 
-   
