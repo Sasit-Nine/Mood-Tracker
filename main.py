@@ -91,6 +91,7 @@ class MoodSelect(BoxLayout):
         if mood_data:
             try:
                 response = suggest_music(mood_data[0])
+                print("response", response)
                 track, artist = split_text(response)
                 self.ids.track_name_label.text = f"{track}\nby {artist}"
                 # Pass the callback to start_progress when the sound plays
