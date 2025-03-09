@@ -13,73 +13,60 @@
     spacing: 20
     padding: 100
            
-    MDCard:
-        md_bg_color: 0, 0, 1, 1
-        padding: 20
 
-        AnchorLayout:  # ใช้ AnchorLayout เพื่อให้ GridLayout อยู่ตรงกลาง
-            anchor_x: "center"
-            anchor_y: "center"
+    AnchorLayout:  # ใช้ AnchorLayout เพื่อให้ GridLayout อยู่ตรงกลาง
+        anchor_x: "center"
+        anchor_y: "center"
 
-            GridLayout:
-                cols: 1
-                spacing: 20
+        GridLayout:
+            cols: 1
+            spacing: 20
+            size_hint: None, None
+            width: self.minimum_width  # ปรับขนาดให้พอดีเนื้อหา
+            height: self.minimum_height
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+            FitImage:
+                id: disk_image
+                source: "Images/disk.gif"
+                opacity: 0
                 size_hint: None, None
-                width: self.minimum_width  # ปรับขนาดให้พอดีเนื้อหา
-                height: self.minimum_height
-                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                size: 350, 350
+                keep_ratio: True
+                allow_stretch: True
+                anim_delay: 0.05  # กำหนดความเร็ว animation
+                anim_loop: 1      # วนลูปการเล่น animation
 
-                FitImage:
-                    id: disk_image
-                    source: "Images/disk.gif"
-                    opacity: 0
-                    size_hint: None, None
-                    size: 280, 280
-                    keep_ratio: True
-                    allow_stretch: True
-                    anim_delay: 0.05  # กำหนดความเร็ว animation
-                    anim_loop: 1      # วนลูปการเล่น animation
+            Label:
+                id: track_name_label
+                text: "Let’s start your day with some great music!"
+                size_hint_y: None
+                height: 60
+                font_size: 30
+                halign: "center"
+                valign: "middle"
+                color: 0.996, 0.412, 0.408, 1
 
-                Label:
-                    id: track_name_label
-                    text: "Let’s start your day with some great music!"
-                    size_hint_y: None
-                    height: 60
-                    font_size: 30
-                    halign: "center"
-                    valign: "middle"
-                    color: 0.996, 0.412, 0.408, 1
-
-                MDLinearProgressIndicator:
-                    id: progress_bar
-                    min: 0
-                    max: 30
-                    value: 0
-                    size_hint_y: None
-                    height: "10dp"
-                    
-                MDLabel:
-                    id: time_label
-                    text: "0:00 / 0:30"
-                    halign: "center"
-                    size_hint_y: None
-                    height: "20dp"   
+            MDLinearProgressIndicator:
+                id: progress_bar
+                min: 0
+                max: 30
+                value: 0
+                size_hint_y: None
+                height: "10dp"
+                
+            MDLabel:
+                id: time_label
+                text: "0:00 / 0:30"
+                halign: "center"
+                size_hint_y: None
+                height: "20dp"   
                 
     Widget:
         size_hint_y: None
         height: 20  
 
-    MDLabel:
-        text: "What’s your mood like today?"
-        halign: "center"
-        bold: True
-        size_hint_y: None
-        height: 60
-        font_style: "Display"
-        role: "small"
-        spacing: 10
-        padding: [20, 0, 20, 20]
-        color: 0.996, 0.412, 0.408, 1
+    
     MDLabel:
         text: "Select Emoji and Enter your Mood To Get the Song"
         halign: "center"
@@ -176,6 +163,17 @@
                 size_hint_y: None
                 height: 20
 
+    MDLabel:
+        text: "What’s your mood like today?"
+        halign: "center"
+        bold: True
+        size_hint_y: None
+        height: 40
+        font_style: "Display"
+        role: "small"
+        spacing: 10
+        color: 0.996, 0.412, 0.408, 1            
+
     AnchorLayout:
         anchor_x: 'center'
         size_hint_y: None
@@ -188,6 +186,8 @@
             height: "60dp"  # ความสูงเพิ่มขึ้น
             spacing: "10dp"
             pos_hint: {'center_x': 0.5}
+
+           
 
             MDTextField:
                 id: text_input_field
@@ -231,7 +231,7 @@
         pos_hint: {"center_x": .5, "center_y": .5}
         size_hint: None, None
         size: "200dp", "40dp"  # ปรับขนาดปุ่ม
-        on_press: root.submit_mood()  # เพิ่มการทำงานเมื่อกดปุ่ม
+        on_press: root.reset_app()  # เพิ่มการทำงานเมื่อกดปุ่ม
         text_color: 0.996, 0.412, 0.408, 1
         font_size: "18sp"  # ขนาดฟอนต์
         MDButtonText:
