@@ -40,6 +40,7 @@ class MoodSelect(BoxLayout):
                 track, artist = split_text(response)
                 self.player.play_preview(None, track, artist)
                 self.text_input.text = ""  # Clear ช่อง input
+                self.ids.track_name_label.text = track
             except Exception as e:
                 print(f"Error suggesting music: {e}")
 
