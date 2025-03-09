@@ -75,10 +75,10 @@ class MoodSelect(BoxLayout):
             try:
                 response = suggest_music(mood_data[0])
                 track, artist = split_text(response)
+                self.ids.track_name_label.text = f"{track}\nby {artist}"  # แสดงชื่อ artist
                 self.player.play_preview(None, track, artist)
                 self.show_disk_animation(True)
                 self.text_input.text = ""  # Clear ช่อง input
-                self.ids.track_name_label.text = track
                 self.is_playing = True
             except Exception as e:
                 print(f"Error suggesting music: {e}")
@@ -97,6 +97,10 @@ class MoodSelect(BoxLayout):
             # หาก show เป็น True -> แสดงแผ่นเพลง (opacity = 1)
             # หาก show เป็น False -> ซ่อนแผ่นเพลง (opacity = 0)
             self.ids.disk_image.opacity = 1 if show else 0
+
+        # ลบชื่อเพลงกับศิลปืนออกหลังเพลงหยุด
+        if not show and hasattr(self.ids, "track_name_label"):
+            self.ids.track_name_label.text = "Let's start your day with some great music!"
 
 
 class MoodTracker:
@@ -120,8 +124,14 @@ class MoodTracker:
 
 
 def split_text(text):
-    text = text.replace('"', "")
-    return text.split(" by ")
+    text = text.replace('"', "").strip()  # ลบเครื่องหมายคำพูด (") และตัดช่องว่างที่ส่วนเกินออกจากข้อความ
+    parts = text.split(" by ")
+
+    # หากมีการแยกข้อความสำเร็จเป็น 2 ส่วน จะคืนค่าชื่อเพลงและศิลปิน
+    if len(parts) >= 2:
+        return parts[0], parts[1]
+
+    return text, "Unknown Artist"
 
 
 class MoodTrackerApp(MDApp):
