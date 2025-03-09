@@ -49,8 +49,22 @@
                     halign: "center"
                     valign: "middle"
                     color: 0.996, 0.412, 0.408, 1
+
+                MDLinearProgressIndicator:
+                    id: progress_bar
+                    min: 0
+                    max: 30
+                    value: 0
+                    size_hint_y: None
+                    height: "10dp"
                     
-        
+                MDLabel:
+                    id: time_label
+                    text: "0:00 / 0:30"
+                    halign: "center"
+                    size_hint_y: None
+                    height: "20dp"   
+                
     Widget:
         size_hint_y: None
         height: 20  

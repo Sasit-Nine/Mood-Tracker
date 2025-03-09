@@ -13,12 +13,16 @@ from kivy.clock import Clock
 class DeezerPlayer:
     def __init__(self):
         self.sound = None
+        self.on_play_callback = None
 
-    def play_preview(self, instance, trackname, artistname):
+    def play_preview(self, instance, trackname, artistname, on_play=None):
         # Initialize Deezer client
         client = deezer.Client()
         print("track: ", trackname, "artistname: ", artistname)
         # Search for the track
+
+        # Store callback for later use
+        self.on_play_callback = on_play
 
         search_results = client.search(track=trackname, artist=artistname)
 
@@ -39,6 +43,8 @@ class DeezerPlayer:
                     self.sound = SoundLoader.load(temp_file_path)
                     if self.sound:
                         self.sound.bind(on_stop=self.on_sound_stop)
+                        # Instead of binding on_play directly, use our own callback that will be called when sound actually starts
+                        Clock.schedule_once(lambda dt: self.check_sound_playing(), 0.1)
                         self.sound.play()
                     else:
                         print("Failed to load the sound.")
@@ -57,6 +63,17 @@ class DeezerPlayer:
         if app and hasattr(app.root, "show_disk_animation"):
             # ต้องใช้ Clock เพราะอาจจะไม่ได้ทำงานบน main thread
             Clock.schedule_once(lambda dt: app.root.show_disk_animation(False), 0)
+        if app and hasattr(app.root, "reset_progress_bar"):
+            Clock.schedule_once(lambda dt: app.root.reset_progress_bar(), 0)
+
+    def check_sound_playing(self):
+        if self.sound and self.sound.state == "play":
+            # Sound is actually playing now, call the on_play callback
+            if self.on_play_callback:
+                self.on_play_callback(self.sound)
+        else:
+            # Check again after a short delay
+            Clock.schedule_once(lambda dt: self.check_sound_playing(), 0.1)
 
 
 if __name__ == "__main__":

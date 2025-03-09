@@ -11,6 +11,8 @@ from kivy.core.window import Window
 from kivy.graphics import Rectangle, Color
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
+from kivy.clock import Clock
+
 import requests
 
 Window.fullscreen = False
@@ -26,6 +28,8 @@ class MoodSelect(BoxLayout):
         self.tracker = MoodTracker()
         self.player = DeezerPlayer()
         self.is_playing = False
+        self.start_time = 0
+        self.progress_event = None  # Store the Clock event for progress updates
 
         # เพิ่มดติมการเปลี่ยน Background
         self.background_images = [
@@ -78,16 +82,16 @@ class MoodSelect(BoxLayout):
             try:
                 response = suggest_music(mood_data[0])
                 track, artist = split_text(response)
-                self.ids.track_name_label.text = f"{track}\nby {artist}"  # แสดงชื่อ artist
-                self.player.play_preview(None, track, artist)
+                self.ids.track_name_label.text = f"{track}\nby {artist}"
+                # Pass the callback to start_progress when the sound plays
+                self.player.play_preview(None, track, artist, on_play=lambda x: self.start_progress())
                 self.show_disk_animation(True)
-                self.text_input.text = ""  # Clear ช่อง input
+                self.text_input.text = ""
                 self.is_playing = True
             except Exception as e:
                 print(f"Error suggesting music: {e}")
 
     def change_background(self):
-
         self.current_background_index = (self.current_background_index + 1) % len(self.background_images)
         image_path = self.background_images[self.current_background_index]
 
@@ -107,6 +111,41 @@ class MoodSelect(BoxLayout):
 
     def exit_app(self):
         App.get_running_app().stop()
+
+    def start_progress(self):
+        # Reset and start the progress bar
+        self.ids.progress_bar.value = 0
+        self.ids.time_label.text = "0:00 / 0:30"
+        self.start_time = Clock.get_time()
+
+        # Schedule updates 10 times per second
+        if hasattr(self, "progress_event") and self.progress_event:
+            Clock.unschedule(self.progress_event)
+        self.progress_event = Clock.schedule_interval(self.update_progress, 0.1)
+
+    def update_progress(self, dt):
+        # Calculate elapsed time
+        elapsed = Clock.get_time() - self.start_time
+        if elapsed <= 30:  # 30 seconds is the maximum duration
+            # Update progress bar
+            self.ids.progress_bar.value = elapsed
+
+            # Format time as minutes:seconds
+            elapsed_min = int(elapsed) // 60
+            elapsed_sec = int(elapsed) % 60
+            self.ids.time_label.text = f"{elapsed_min}:{elapsed_sec:02d} / 0:30"
+        else:
+            self.reset_progress_bar()
+
+    def reset_progress_bar(self):
+        # Reset progress bar and time label
+        self.ids.progress_bar.value = 0
+        self.ids.time_label.text = "0:00 / 0:30"
+
+        # Cancel the update schedule
+        if hasattr(self, "progress_event") and self.progress_event:
+            Clock.unschedule(self.progress_event)
+            self.progress_event = None
 
 
 class MoodTracker:
