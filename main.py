@@ -12,7 +12,6 @@ from kivy.graphics import Rectangle, Color
 
 Window.fullscreen = False
 
-deezer_player = DeezerPlayer().play_preview
 
 class MoodSelect(BoxLayout):
     """UI หลักของหน้าเลือกอารมณ์"""
@@ -23,7 +22,8 @@ class MoodSelect(BoxLayout):
         super().__init__(**kwargs)
         self.tracker = MoodTracker()
         self.player = DeezerPlayer()
-       
+        self.is_playing = False
+
         # เพิ่มดติมการเปลี่ยน Background
         self.background_images = [
             "Images/background.png",
@@ -37,11 +37,12 @@ class MoodSelect(BoxLayout):
             "Images/background8.jpg",
             "Images/background9.png",
         ]
-        self.current_background_index = 0 
+        self.current_background_index = 0
         with self.canvas.before:
             self.bg_color = Color(1, 1, 1, 1)  # กำหนดสีพื้นหลังเริ่มต้น
-            self.bg_rect = Rectangle(source=self.background_images[self.current_background_index], size=self.size, pos=self.pos)
-
+            self.bg_rect = Rectangle(
+                source=self.background_images[self.current_background_index], size=self.size, pos=self.pos
+            )
 
     def on_size(self, *args):
         self.bg_rect.size = self.size
@@ -53,14 +54,13 @@ class MoodSelect(BoxLayout):
 
     def emoji_select(self, mood, button):
         """ส่วนไว้รับการเลือก emoji"""
-        #ทำ animation เวลาปุ่มถูกเลือก
-        anim = (
-        Animation(size=(90, 90), duration=0.1, t='out_quad') 
-        + Animation(size=(80, 80), duration=0.1, t='out_quad') )
+        # ทำ animation เวลาปุ่มถูกเลือก
+        anim = Animation(size=(90, 90), duration=0.1, t="out_quad") + Animation(
+            size=(80, 80), duration=0.1, t="out_quad"
+        )
         anim.start(button)
         self.tracker.track_mood(mood)
-       
-        
+
         self.tracker.track_mood(mood)
 
     def submit_mood(self, *args):
@@ -76,18 +76,27 @@ class MoodSelect(BoxLayout):
                 response = suggest_music(mood_data[0])
                 track, artist = split_text(response)
                 self.player.play_preview(None, track, artist)
+                self.show_disk_animation(True)
                 self.text_input.text = ""  # Clear ช่อง input
                 self.ids.track_name_label.text = track
+                self.is_playing = True
             except Exception as e:
                 print(f"Error suggesting music: {e}")
 
     def change_background(self):
-        
+
         self.current_background_index = (self.current_background_index + 1) % len(self.background_images)
         image_path = self.background_images[self.current_background_index]
 
         # เปลี่ยนภาพพื้นหลังใน Canvas
         self.bg_rect.source = image_path
+
+    def show_disk_animation(self, show=True):
+        # ควบคุมการแสดง แผ่นเพลง(disk.gif)
+        if hasattr(self.ids, "disk_image"):  # ตรวจสอบว่า self.ids มี widget ที่มี id ชื่อว่า "disk_image" อยู่หรือไม่
+            # หาก show เป็น True -> แสดงแผ่นเพลง (opacity = 1)
+            # หาก show เป็น False -> ซ่อนแผ่นเพลง (opacity = 0)
+            self.ids.disk_image.opacity = 1 if show else 0
 
 
 class MoodTracker:
@@ -118,13 +127,14 @@ def split_text(text):
 class MoodTrackerApp(MDApp):
     def build(self):
         return MoodSelect()
-    
+
     def stop_app(self):
         self.stop()
 
     def on_request_close(self, *args):
         self.stop()
         return True
+
 
 if __name__ == "__main__":
     MoodTrackerApp().run()

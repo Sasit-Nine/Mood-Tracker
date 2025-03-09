@@ -7,18 +7,20 @@ import deezer
 from kivy.core.audio import SoundLoader
 from kivy.app import App
 from kivy.uix.button import Button
+from kivy.clock import Clock
 
 
-class DeezerPlayer(App):
+class DeezerPlayer:
+    def __init__(self):
+        self.sound = None
 
     def play_preview(self, instance, trackname, artistname):
         # Initialize Deezer client
         client = deezer.Client()
         print("track: ", trackname, "artistname: ", artistname)
         # Search for the track
-        track_name = trackname
-        artist_name = artistname
-        search_results = client.search(track=track_name, artist=artist_name)
+
+        search_results = client.search(track=trackname, artist=artistname)
 
         if search_results:
             track = search_results[0]  # Get the first result
@@ -34,9 +36,10 @@ class DeezerPlayer(App):
                         temp_file_path = temp_file.name
 
                     # Load and play the audio using Kivy's SoundLoader
-                    sound = SoundLoader.load(temp_file_path)
-                    if sound:
-                        sound.play()
+                    self.sound = SoundLoader.load(temp_file_path)
+                    if self.sound:
+                        self.sound.bind(on_stop=self.on_sound_stop)
+                        self.sound.play()
                     else:
                         print("Failed to load the sound.")
                 else:
@@ -45,6 +48,13 @@ class DeezerPlayer(App):
                 print("No preview available for this track.")
         else:
             print("Track not found.")
+
+    def on_sound_stop(self, sound):
+        # เมื่อเพลงจบให้ซ่อน disk.gif
+        app = App.get_running_app()
+        if hasattr(app.root, "show_disk_animation"):
+            # ต้องใช้ Clock เพราะอาจจะไม่ได้ทำงานบน main thread
+            Clock.schedule_once(lambda dt: app.root.show_disk_animation(False), 0)
 
 
 if __name__ == "__main__":
