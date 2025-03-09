@@ -12,22 +12,33 @@
 
     MDCard:
         style: "filled"
-        AnchorLayout:
-            anchor_x: "center"
-            anchor_y: "center"
+        size_hint: None, None
+        size: 550, 800
+        padding: 20
+
+        GridLayout:
+            cols: 1
+            spacing: 20
+            size_hint_y: None
+            height: self.minimum_height
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
             FitImage:
                 source: "Images/disk.gif"
-                size_hint: None, None  # ปิดการปรับขนาดอัตโนมัติ
-                size: 500, 500  # ปรับให้เป็นจตุรัส 200x200 (เปลี่ยนได้ตามต้องการ)
-                keep_ratio: True  # รักษาอัตราส่วนของรูปภาพ
-                allow_stretch: True  # อนุญาตให้ยืดขยายรูปภาพ
-        Label:
-            text: "What’s your mood like today?"
-            size_hint_y: None
-            height: 60
-            font_size: 50
-            spacing: 10
-            padding: [20,20]
+                size_hint: None, None
+                size: 500, 500
+                keep_ratio: True
+                allow_stretch: True
+
+            Label:
+                text: "What’s your mood like today?"
+                size_hint_y: None
+                height: 60
+                font_size: 50
+                halign: "center"
+                valign: "middle"
+                text_size: self.size
+
 
     Label:
         text: "What’s your mood like today?"
