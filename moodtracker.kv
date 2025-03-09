@@ -17,16 +17,31 @@
         orientation: 'horizontal'
         spacing: 10
         size_hint_y: None
-        height: 80
+        height: 60
         pos_hint: {"center_x": 0.5}
 
-        MDIconButton:
-            icon: 'image-album'
-            theme_text_color: 'Custom'
-            text_color: 0.996, 0.412, 0.408, 1
-            on_press: root.change_background()
+        MDBoxLayout:
+            size_hint: None, None
+            size: 50, 60  
+            md_bg_color: 1, 1, 1, 1  
+            radius: [10] 
+            elevation: 5 
+            pos_hint: {"center_x": 1, "center_y": 1}
 
-
+            MDIconButton:
+                icon: 'image-album'
+                theme_text_color: 'Custom'
+                text_color: 0.996, 0.412, 0.408, 1
+                on_press: root.change_background()
+        MDLabel:
+            text:"Change Background"
+            theme_text_color: "Custom"
+            text_color: 0.2, 0.6, 0.9, 1
+            valign: "center"
+            pos_hint: {"center_y": 1}
+            bold: True
+           
+               
     MDCard:
         md_bg_color: 0, 0, 1, 1
         padding: 20
