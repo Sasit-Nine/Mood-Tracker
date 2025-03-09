@@ -11,7 +11,7 @@ def suggest_music(mood_and_text):
 You are an assistant that recommends international songs based on the user's mood and text.
 Please suggest a well-known **English song released in 2010 or later** that matches the mood '{mood_and_text[0]}' and is relevant to the following text: "{mood_and_text[1]}". 
 Only respond with the title of **one real song** that actually exists, without any additional explanation or information.
-Make sure the song is popular and officially released after 2010.
+Make sure the song is popular and officially released after 2010.(This format only: "track" by artist'name)
 """
 
     print(prompt)
