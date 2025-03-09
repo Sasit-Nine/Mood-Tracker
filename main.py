@@ -8,8 +8,9 @@ from kivy.lang import Builder
 from kivymd.uix.screen import MDScreen
 from kivy.animation import Animation
 from kivy.core.window import Window
+from kivy.graphics import Rectangle, Color
 
-Window.fullscreen = True
+# Window.fullscreen = True
 
 deezer_player = DeezerPlayer().play_preview
 
@@ -22,6 +23,18 @@ class MoodSelect(BoxLayout):
         super().__init__(**kwargs)
         self.tracker = MoodTracker()
         self.player = DeezerPlayer()
+       
+        # เพิ่มดติมการเปลี่ยน Background
+        self.background_images = [
+            "Images/background1.png",
+            "Images/background2.jpg",
+            "Images/background3.jpg"
+        ]
+        self.current_background_index = 0 
+        with self.canvas.before:
+            self.bg_color = Color(1, 1, 1, 1)  # กำหนดสีพื้นหลังเริ่มต้น
+            self.bg_rect = Rectangle(source=self.background_images[self.current_background_index], size=self.size, pos=self.pos)
+
 
     def emoji_select(self, mood):
         """ส่วนไว้รับการเลือก emoji"""
@@ -46,6 +59,14 @@ class MoodSelect(BoxLayout):
                 self.ids.track_name_label.text = track
             except Exception as e:
                 print(f"Error suggesting music: {e}")
+
+    def change_background(self):
+        """เปลี่ยนพื้นหลังไปยังภาพถัดไป"""
+        self.current_background_index = (self.current_background_index + 1) % len(self.background_images)
+        image_path = self.background_images[self.current_background_index]
+
+        # เปลี่ยนภาพพื้นหลังใน Canvas
+        self.bg_rect.source = image_path
 
 
 class MoodTracker:
