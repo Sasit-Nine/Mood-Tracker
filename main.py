@@ -7,6 +7,9 @@ from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivymd.uix.screen import MDScreen
 from kivy.animation import Animation
+from kivy.core.window import Window
+
+Window.fullscreen = True
 
 deezer_player = DeezerPlayer().play_preview
 

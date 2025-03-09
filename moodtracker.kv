@@ -14,8 +14,7 @@
     padding: 50
 
     MDCard:
-        md_bg_color: 1, 1, 1, 1
-        style: "filled"
+        md_bg_color: 0, 0, 1, 1
         padding: 20
 
         AnchorLayout:  # ใช้ AnchorLayout เพื่อให้ GridLayout อยู่ตรงกลาง
@@ -33,7 +32,7 @@
                 FitImage:
                     source: "Images/disk.gif"
                     size_hint: None, None
-                    size: 450, 450
+                    size: 400, 400
                     keep_ratio: True
                     allow_stretch: True
 
@@ -46,6 +45,8 @@
                     halign: "center"
                     valign: "middle"
                     color: 0.996, 0.412, 0.408, 1
+                    
+        
     Widget:
         size_hint_y: None
         height: 20  
@@ -59,8 +60,19 @@
         font_style: "Display"
         role: "small"
         spacing: 10
-        padding: [20,20]
+        padding: [20, 0, 20, 20]
         color: 0.996, 0.412, 0.408, 1
+    MDLabel:
+        text: "Select Emoji and Enter your Mood To Get the Song"
+        halign: "center"
+        bold: True
+        size_hint_y: None
+        height: 60
+        font_style: "Display"
+        role: "small"
+        spacing: 10
+        padding: [20, 0, 20, 20]
+        color: 0.329, 0.8, 0.972, 1
 
     Widget:
         size_hint_y: None
@@ -68,9 +80,7 @@
 
     BoxLayout:
         id: emoji_grid
-        spacing: 10
         size_hint_y: None 
-        height: 80
         
         BoxLayout:
             orientation: 'vertical'
@@ -150,7 +160,7 @@
 
     MDTextField:
         id: text_input_field
-        mode: "outlined"
+        mode: "filled"
         multiline: False
         size_hint_y: None
         height: 100
@@ -169,20 +179,22 @@
         size_hint: None, None
         size: "300dp", "50dp"  # ปรับขนาดปุ่ม
         on_press: root.submit_mood()  # เพิ่มการทำงานเมื่อกดปุ่ม
-        theme_text_color: "Custom"  # กำหนดให้ใช้สีข้อความแบบกำหนดเอง
-        text_color: 0, 0, 0, 0  # สีข้อความขาว
+        text_color: 0.996, 0.412, 0.408, 1
         font_size: "18sp"  # ขนาดฟอนต์
         MDButtonText:
             text: "Get Music Recommendation"
+        
 
 
 # Custom button for mood emojis
 <MoodButton@Button>:
+
     background_normal: ''
     background_color: 1, 1, 1, 1
     border: (0, 0, 0, 0)
     size_hint: (None, None)
     size: 80, 80
+    shadow_color: "red"
 
     # เพิ่มเอฟเฟกต์เมื่อกดปุ่ม
     
