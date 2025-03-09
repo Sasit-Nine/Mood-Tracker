@@ -10,7 +10,7 @@ from kivy.animation import Animation
 from kivy.core.window import Window
 from kivy.graphics import Rectangle, Color
 
-# Window.fullscreen = True
+Window.fullscreen = False
 
 deezer_player = DeezerPlayer().play_preview
 
@@ -51,10 +51,16 @@ class MoodSelect(BoxLayout):
         self.current_background_index = (self.current_background_index + 1) % len(self.background_images)
         self.bg_rect.source = self.background_images[self.current_background_index]
 
-    def emoji_select(self, mood):
+    def emoji_select(self, mood, button):
         """ส่วนไว้รับการเลือก emoji"""
-        anim = Animation(size=(90, 90), duration=0.1) + Animation(size=(80, 80), duration=0.1)
-        anim.start(self.ids.emoji_grid)
+        #ทำ animation เวลาปุ่มถูกเลือก
+        anim = (
+        Animation(size=(90, 90), duration=0.1, t='out_quad') 
+        + Animation(size=(80, 80), duration=0.1, t='out_quad') )
+        anim.start(button)
+        self.tracker.track_mood(mood)
+       
+        
         self.tracker.track_mood(mood)
 
     def submit_mood(self, *args):
