@@ -9,6 +9,9 @@ from kivymd.uix.screen import MDScreen
 from kivy.animation import Animation
 from kivy.core.window import Window
 from kivy.graphics import Rectangle, Color
+from kivy.uix.popup import Popup
+from kivy.uix.label import Label
+import requests
 
 Window.fullscreen = False
 
@@ -97,6 +100,9 @@ class MoodSelect(BoxLayout):
             # หาก show เป็น True -> แสดงแผ่นเพลง (opacity = 1)
             # หาก show เป็น False -> ซ่อนแผ่นเพลง (opacity = 0)
             self.ids.disk_image.opacity = 1 if show else 0
+
+    def exit_app(self):
+        App.get_running_app().stop()
 
 
 class MoodTracker:

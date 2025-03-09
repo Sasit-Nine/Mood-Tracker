@@ -11,37 +11,22 @@
     text_input: text_input_field
     orientation: "vertical"
     spacing: 20
-    padding: 50
+    padding: 100
 
     BoxLayout:
         orientation: 'horizontal'
-        spacing: 10
         size_hint_y: None
         height: 60
         pos_hint: {"center_x": 0.5}
 
-        MDBoxLayout:
+        MDButton:
+            text: "Exit"
             size_hint: None, None
-            size: 50, 60  
-            md_bg_color: 1, 1, 1, 1  
-            radius: [10] 
-            elevation: 5 
-            pos_hint: {"center_x": 1, "center_y": 1}
-
-            MDIconButton:
-                icon: 'image-album'
-                theme_text_color: 'Custom'
-                text_color: 0.996, 0.412, 0.408, 1
-                on_press: root.change_background()
-        MDLabel:
-            text:"Change Background"
-            theme_text_color: "Custom"
-            text_color: 0.2, 0.6, 0.9, 1
-            valign: "center"
-            pos_hint: {"center_y": 1}
-            bold: True
+            size: "100dp", "40dp"
+            on_press: root.exit_app()
+            text_color: 0.996, 0.412, 0.408, 1
+            font_size: "18sp"
            
-               
     MDCard:
         md_bg_color: 0, 0, 1, 1
         padding: 20
@@ -224,8 +209,35 @@
         font_size: "18sp"  # ขนาดฟอนต์
         MDButtonText:
             text: "Clear"
-        
+            
+            
+    BoxLayout:
+        orientation: 'horizontal'
+        spacing: 10
+        size_hint_y: None
+        height: 60
+        pos_hint: {"center_x": 0.5}
 
+        MDBoxLayout:
+            size_hint: None, None
+            size: 50, 60  
+            md_bg_color: 1, 1, 1, 1  
+            radius: [10] 
+            elevation: 5 
+            pos_hint: {"center_x": 1, "center_y": 1}
+
+            MDIconButton:
+                icon: 'image-album'
+                theme_text_color: 'Custom'
+                text_color: 0.996, 0.412, 0.408, 1
+                on_press: root.change_background()
+        MDLabel:
+            text:"Change Background"
+            theme_text_color: "Custom"
+            text_color: 0.2, 0.6, 0.9, 1
+            valign: "center"
+            pos_hint: {"center_y": 1}
+            bold: True
 
 # Custom button for mood emojis
 <MoodButton@Button>:
