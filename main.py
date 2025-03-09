@@ -43,6 +43,16 @@ class MoodSelect(BoxLayout):
             "Images/background7.jpg",
             "Images/background8.jpg",
             "Images/background9.png",
+            "Images/background10.png",
+            "Images/background11.png",
+            "Images/background12.png",
+            "Images/background13.png",
+            "Images/background14.png",
+            "Images/background15.png",
+            "Images/background16.png",
+            "Images/background17.png",
+            "Images/background18.png",
+            "Images/background19.png",
         ]
         self.current_background_index = 0
         with self.canvas.before:
