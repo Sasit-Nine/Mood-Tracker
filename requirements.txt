@@ -1,0 +1,9 @@
+kivy
+kivymd
+python-dotenv
+requests
+deezer-python
+deepseek
+torch
+transformers
+openai
