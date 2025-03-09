@@ -1,11 +1,12 @@
 #:kivy 2.3.1
 <MoodSelect>:
     canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1  # สีขาวเป็นพื้นฐาน
         Rectangle:
             source: "Images/background.png"
-            
-            pos: self.pos
             size: self.size
+            pos: self.pos
 
     text_input: text_input_field
     orientation: "vertical"
@@ -13,33 +14,36 @@
     padding: 50
 
     MDCard:
-        style: "filled"
-        size_hint: None, None
-        size: 550, 800
+        background_color: 1,1,1,1
         padding: 20
 
-        GridLayout:
-            cols: 1
-            spacing: 20
-            size_hint_y: None
-            height: self.minimum_height
-            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        AnchorLayout:  # ใช้ AnchorLayout เพื่อให้ GridLayout อยู่ตรงกลาง
+            anchor_x: "center"
+            anchor_y: "center"
 
-            FitImage:
-                source: "Images/disk.gif"
+            GridLayout:
+                cols: 1
+                spacing: 20
                 size_hint: None, None
-                size: 500, 500
-                keep_ratio: True
-                allow_stretch: True
+                width: self.minimum_width  # ปรับขนาดให้พอดีเนื้อหา
+                height: self.minimum_height
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
 
-            Label:
-                text: "What’s your mood like today?"
-                size_hint_y: None
-                height: 60
-                font_size: 50
-                halign: "center"
-                valign: "middle"
-                text_size: self.size
+                FitImage:
+                    source: "Images/disk.gif"
+                    size_hint: None, None
+                    size: 450, 450
+                    keep_ratio: True
+                    allow_stretch: True
+
+                Label:
+                    text: "Name Music"
+                    size_hint_y: None
+                    height: 60
+                    font_size: 40
+                    halign: "center"
+                    valign: "middle"
+                    color: 0.996, 0.412, 0.408, 1
 
 
     Label:
@@ -50,6 +54,7 @@
         spacing: 10
         color: 0, 0, 0, 0 
         padding: [20,20]
+        color: 0.996, 0.412, 0.408, 1
 
     Widget:
         size_hint_y: None
