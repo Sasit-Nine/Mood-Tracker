@@ -32,7 +32,7 @@
                 FitImage:
                     source: "Images/disk.gif"
                     size_hint: None, None
-                    size: 400, 400
+                    size: 280, 280
                     keep_ratio: True
                     allow_stretch: True
 
@@ -177,12 +177,22 @@
         style: "elevated"
         pos_hint: {"center_x": .5, "center_y": .5}
         size_hint: None, None
-        size: "300dp", "50dp"  # ปรับขนาดปุ่ม
+        size: "200dp", "40dp"  # ปรับขนาดปุ่ม
         on_press: root.submit_mood()  # เพิ่มการทำงานเมื่อกดปุ่ม
         text_color: 0.996, 0.412, 0.408, 1
         font_size: "18sp"  # ขนาดฟอนต์
         MDButtonText:
             text: "Get Music Recommendation"
+    MDButton:
+        style: "elevated"
+        pos_hint: {"center_x": .5, "center_y": .5}
+        size_hint: None, None
+        size: "200dp", "40dp"  # ปรับขนาดปุ่ม
+        on_press: root.submit_mood()  # เพิ่มการทำงานเมื่อกดปุ่ม
+        text_color: 0.996, 0.412, 0.408, 1
+        font_size: "18sp"  # ขนาดฟอนต์
+        MDButtonText:
+            text: "Clear"
         
 
 
@@ -219,35 +229,5 @@
             size: self.size
             radius: [10, 10, 10, 10]
 
-<MoodButton@Button>:
 
-    background_normal: ''
-    background_color: 1, 1, 1, 1
-    border: (0, 0, 0, 0)
-    size_hint: (None, None)
-    size: 80, 80
-    shadow_color: "red"
-
-    # เพิ่มเอฟเฟกต์เมื่อกดปุ่ม
-    
-    background_down: self.background_normal
-    background_color_down: 0.8, 0.8, 0.8, 1 
-
-    # เพิ่มเอฟเฟกต์การเปลี่ยนสีเมื่อเมาส์ชี้
-    canvas.before:
-        Color:
-            rgba: 0.9, 0.9, 0.9, 1 if self.state == 'normal' else 0.7, 0.7, 0.7, 1
-        RoundedRectangle:
-            pos: self.pos
-            size: self.size
-            radius: [10, 10, 10, 10]  # ทำมุมโค้ง
-            
-    # เพิ่มเงา
-    canvas.before:
-        Color:
-            rgba: 0.5, 0.5, 0.5, 0.2
-        RoundedRectangle:
-            pos: self.x + 2, self.y - 2
-            size: self.size
-            radius: [10, 10, 10, 10]
 

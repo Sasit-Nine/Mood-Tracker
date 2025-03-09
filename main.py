@@ -77,15 +77,12 @@ class MoodTrackerApp(MDApp):
     def build(self):
         return MoodSelect()
     
-
     def stop_app(self):
         self.stop()
 
     def on_request_close(self, *args):
         self.stop()
         return True
-
-
 
 if __name__ == "__main__":
     MoodTrackerApp().run()
