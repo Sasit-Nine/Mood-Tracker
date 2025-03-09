@@ -51,8 +51,10 @@ class DeezerPlayer:
 
     def on_sound_stop(self, sound):
         # เมื่อเพลงจบให้ซ่อน disk.gif
+        from kivy.app import App
+
         app = App.get_running_app()
-        if hasattr(app.root, "show_disk_animation"):
+        if app and hasattr(app.root, "show_disk_animation"):
             # ต้องใช้ Clock เพราะอาจจะไม่ได้ทำงานบน main thread
             Clock.schedule_once(lambda dt: app.root.show_disk_animation(False), 0)
 
