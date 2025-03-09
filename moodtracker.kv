@@ -176,31 +176,42 @@
                 size_hint_y: None
                 height: 20
 
-    MDTextField:
-        id: text_input_field
-        mode: "filled"
-        multiline: False
+    AnchorLayout:
+        anchor_x: 'center'
         size_hint_y: None
-        height: 100
-        hint_text: "Type a short description of your emotions..."
-        
-        md_bg_color: 0.992, 0.992, 0.996, 1  # สีพื้นหลัง (เทียบเท่า #FDFDFE)
-        text_color: 0, 0, 0, 1  # สีข้อความ (ดำ)
-        hint_text_color: 0.5, 0.5, 0.5, 1  # สีข้อความ Hint (เทา)
-        
-        padding: [10, 10, 10, 10]  # เพิ่ม padding ภายในช่องข้อความ
-        
-    
-    MDButton:
-        style: "elevated"
-        pos_hint: {"center_x": .5, "center_y": .5}
-        size_hint: None, None
-        size: "200dp", "40dp"  # ปรับขนาดปุ่ม
-        on_press: root.submit_mood()  # เพิ่มการทำงานเมื่อกดปุ่ม
-        text_color: 0.996, 0.412, 0.408, 1
-        font_size: "18sp"  # ขนาดฟอนต์
-        MDButtonText:
-            text: "Get Music Recommendation"
+        height: "120dp"
+        padding: [20, 0, 20, 0]
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 0.5, None  # ครึ่งความกว้างของหน้าจอ
+            height: "60dp"  # ความสูงเพิ่มขึ้น
+            spacing: "10dp"
+            pos_hint: {'center_x': 0.5}
+
+            MDTextField:
+                id: text_input_field
+                mode: "filled"
+                radius: [25, 25, 25, 25]
+                multiline: False
+                hint_text: "Describe your feeling..."
+                line_color_normal: 0.996, 0.412, 0.408, 1
+                line_color_focus: 0.329, 0.8, 0.972, 1
+                text_color: 0, 0, 0, 1
+                hint_text_color: 0.6, 0.6, 0.6, 1
+                font_size: "16sp"
+                padding: [25, 20, 15, 20]
+                size_hint_x: 0.85
+                
+            MDIconButton:
+                icon: "send"
+                theme_icon_color: "Custom"
+                icon_color: 0.996, 0.412, 0.408, 1
+                md_bg_color: 0.329, 0.8, 0.972, 0.8
+                size_hint: None, None
+                size: "60dp", "60dp"
+                radius: [20, 20, 20, 20]
+                on_press: root.submit_mood()
             
    
     MDButton:
