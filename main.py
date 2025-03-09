@@ -26,15 +26,30 @@ class MoodSelect(BoxLayout):
        
         # เพิ่มดติมการเปลี่ยน Background
         self.background_images = [
+            "Images/background.png",
             "Images/background1.png",
             "Images/background2.jpg",
-            "Images/background3.jpg"
+            "Images/background3.jpg",
+            "Images/background4.png",
+            "Images/background5.jpg",
+            "Images/background6.jpg",
+            "Images/background7.jpg",
+            "Images/background8.jpg",
+            "Images/background9.png",
         ]
         self.current_background_index = 0 
         with self.canvas.before:
             self.bg_color = Color(1, 1, 1, 1)  # กำหนดสีพื้นหลังเริ่มต้น
             self.bg_rect = Rectangle(source=self.background_images[self.current_background_index], size=self.size, pos=self.pos)
 
+
+    def on_size(self, *args):
+        self.bg_rect.size = self.size
+        self.bg_rect.pos = self.pos
+
+    def change_background(self):
+        self.current_background_index = (self.current_background_index + 1) % len(self.background_images)
+        self.bg_rect.source = self.background_images[self.current_background_index]
 
     def emoji_select(self, mood):
         """ส่วนไว้รับการเลือก emoji"""
@@ -61,7 +76,7 @@ class MoodSelect(BoxLayout):
                 print(f"Error suggesting music: {e}")
 
     def change_background(self):
-        """เปลี่ยนพื้นหลังไปยังภาพถัดไป"""
+        
         self.current_background_index = (self.current_background_index + 1) % len(self.background_images)
         image_path = self.background_images[self.current_background_index]
 
