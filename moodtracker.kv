@@ -13,6 +13,20 @@
     spacing: 20
     padding: 50
 
+    BoxLayout:
+        orientation: 'horizontal'
+        spacing: 10
+        size_hint_y: None
+        height: 80
+        pos_hint: {"center_x": 0.5}
+
+        MDIconButton:
+            icon: 'image-album'
+            theme_text_color: 'Custom'
+            text_color: 0.996, 0.412, 0.408, 1
+            on_press: root.change_background()
+
+
     MDCard:
         md_bg_color: 0, 0, 1, 1
         padding: 20
