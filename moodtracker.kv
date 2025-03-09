@@ -14,7 +14,8 @@
     padding: 50
 
     MDCard:
-        background_color: 1,1,1,1
+        md_bg_color: 1, 1, 1, 1
+        style: "filled"
         padding: 20
 
         AnchorLayout:  # ใช้ AnchorLayout เพื่อให้ GridLayout อยู่ตรงกลาง
@@ -38,22 +39,26 @@
 
                 Label:
                     id: track_name_label
-                    text: "Name"
+                    text: "Let’s start your day with some great music!"
                     size_hint_y: None
                     height: 60
                     font_size: 40
                     halign: "center"
                     valign: "middle"
                     color: 0.996, 0.412, 0.408, 1
+    Widget:
+        size_hint_y: None
+        height: 20  
 
-
-    Label:
+    MDLabel:
         text: "What’s your mood like today?"
+        halign: "center"
+        bold: True
         size_hint_y: None
         height: 60
-        font_size: 50
+        font_style: "Display"
+        role: "small"
         spacing: 10
-        color: 0, 0, 0, 0 
         padding: [20,20]
         color: 0.996, 0.412, 0.408, 1
 
